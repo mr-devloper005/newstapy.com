@@ -12,9 +12,23 @@ type Props = {
   task: TaskKey;
   initialPosts: SitePost[];
   category?: string;
+  /** Optional time window for client-side filtering by publish date */
+  period?: "all" | "7d" | "30d" | "90d";
+  /** Optional grid layout override for task-specific listing pages */
+  gridClassName?: string;
 };
 
-export function TaskListClient({ task, initialPosts, category }: Props) {
+function filterByPeriod(posts: SitePost[], period?: Props["period"]) {
+  if (!period || period === "all") return posts;
+  const days = period === "7d" ? 7 : period === "30d" ? 30 : 90;
+  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+  return posts.filter((post) => {
+    const t = post.publishedAt ? new Date(post.publishedAt).getTime() : 0;
+    return t >= cutoff;
+  });
+}
+
+export function TaskListClient({ task, initialPosts, category, period, gridClassName }: Props) {
   const localPosts = getLocalPostsForTask(task);
 
   const merged = useMemo(() => {
@@ -35,14 +49,15 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
 
     const normalizedCategory = category ? normalizeCategory(category) : "all";
     if (normalizedCategory === "all") {
-      return combined.filter((post) => {
+      const allowed = combined.filter((post) => {
         const content = post.content && typeof post.content === "object" ? post.content : {};
         const value = typeof (content as any).category === "string" ? (content as any).category : "";
         return !value || isValidCategory(value);
       });
+      return filterByPeriod(allowed, period);
     }
 
-    return combined.filter((post) => {
+    const byCategory = combined.filter((post) => {
       const content = post.content && typeof post.content === "object" ? post.content : {};
       const value =
         typeof (content as any).category === "string"
@@ -50,7 +65,8 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
           : "";
       return value === normalizedCategory;
     });
-  }, [category, initialPosts, localPosts]);
+    return filterByPeriod(byCategory, period);
+  }, [category, initialPosts, localPosts, period]);
 
   if (!merged.length) {
     return (
@@ -61,7 +77,7 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
   }
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className={gridClassName ?? "grid gap-6 sm:grid-cols-2 lg:grid-cols-4"}>
       {merged.map((post) => {
         const localOnly = (post as any).localOnly;
         const href = localOnly

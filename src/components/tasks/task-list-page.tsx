@@ -40,14 +40,20 @@ const variantShells = {
   'sbm-library': 'bg-[linear-gradient(180deg,#f7f8fc_0%,#ffffff_100%)]',
 } as const
 
-export async function TaskListPage({ task, category }: { task: TaskKey; category?: string }) {
+function normalizePeriod(value?: string): 'all' | '7d' | '30d' | '90d' | undefined {
+  if (value === '7d' || value === '30d' || value === '90d') return value
+  return undefined
+}
+
+export async function TaskListPage({ task, category, period }: { task: TaskKey; category?: string; period?: string }) {
   if (TASK_LIST_PAGE_OVERRIDE_ENABLED) {
-    return await TaskListPageOverride({ task, category })
+    return await TaskListPageOverride({ task, category, period: normalizePeriod(period) })
   }
 
   const taskConfig = getTaskConfig(task)
   const posts = await fetchTaskPosts(task, 30)
   const normalizedCategory = category ? normalizeCategory(category) : 'all'
+  const normalizedPeriod = normalizePeriod(period)
   const intro = taskIntroCopy[task]
   const baseUrl = SITE_CONFIG.baseUrl.replace(/\/$/, '')
   const schemaItems = posts.slice(0, 10).map((post, index) => ({
@@ -252,7 +258,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           </section>
         ) : null}
 
-        <TaskListClient task={task} initialPosts={posts} category={normalizedCategory} />
+        <TaskListClient task={task} initialPosts={posts} category={normalizedCategory} period={normalizedPeriod} />
       </main>
       <Footer />
     </div>
