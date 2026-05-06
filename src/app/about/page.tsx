@@ -32,7 +32,7 @@ const features = [
   },
   {
     title: "Analytics & Insights",
-    description: "Track performance, engagement, and reach of your press releases in real-time.",
+    description: "Track performance, engagement, and reach of your press wire in real-time.",
     icon: "📊"
   },
   {
@@ -42,7 +42,7 @@ const features = [
   },
   {
     title: "Multi-format Support",
-    description: "Support for text, images, videos, and attachments to enrich your press releases.",
+    description: "Support for text, images, videos, and attachments to enrich your press wire.",
     icon: "🎨"
   },
   {
@@ -56,7 +56,7 @@ const testimonials = [
   {
     name: "Sarah Johnson",
     role: "PR Director at TechCorp",
-    content: "NewsTapy transformed how we handle press releases. The distribution network is unmatched and the analytics help us prove ROI.",
+    content: "NewsTapy transformed how we handle press wire. The distribution network is unmatched and the analytics help us prove ROI.",
     avatar: "/placeholder.svg?height=60&width=60"
   },
   {
@@ -159,7 +159,7 @@ export default function AboutPage() {
                   Empowering clear, effective communication between organizations and their audiences.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We believe that press releases should be accessible, well-formatted, and easily discoverable. 
+                  We believe that press wire should be accessible, well-formatted, and easily discoverable. 
                   NewsTapy bridges the gap between organizations and the media, ensuring that important news 
                   reaches the right people at the right time.
                 </p>
@@ -170,7 +170,7 @@ export default function AboutPage() {
                   The future of press distribution is structured and intelligent.
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  We're building a world where every press release is optimized for discovery, 
+                  We're building a world where every press wire is optimized for discovery, 
                   where analytics provide actionable insights, and where organizations can maintain 
                   meaningful connections with their audience through clear, professional communication.
                 </p>
@@ -238,29 +238,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Technology Section */}
-      <div className="mt-16">
-        <Card className="border-border bg-card">
-          <CardContent className="p-8">
-            <div className="text-center mb-8">
-              <Badge variant="secondary" className="mb-4">Technology Stack</Badge>
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                Built with modern, reliable technology
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                We use cutting-edge technology to ensure reliability, security, and performance for all our users.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3 justify-center">
-              {technologies.map((tech, index) => (
-                <Badge key={index} variant="outline" className="px-3 py-1">
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
     </PageShell>
   );
 }
