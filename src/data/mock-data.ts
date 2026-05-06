@@ -770,9 +770,9 @@ export const mockTeamMembers: TeamMember[] = [
   },
   {
     id: 'team-3',
-    name: 'Priya Desai',
+    name: 'Marcus Webb',
     role: 'Engineering',
-    avatar: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=200&h=200&fit=crop',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
     bio: 'Focused on reliability, search, and delightful performance.',
     location: 'New York, NY'
   }
@@ -900,7 +900,7 @@ export const mockBlogPosts: BlogPost[] = [
     date: 'Feb 10, 2026',
     excerpt: 'A behind-the-scenes look at the new SBM module and its workflows.',
     tag: 'Product',
-    author: 'Priya Desai',
+    author: 'Marcus Webb',
     readTime: '5 min'
   }
 ]

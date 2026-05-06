@@ -29,7 +29,6 @@ export function NavbarOverride() {
     if (primaryTask) {
       items.push({ label: primaryTask.label, href: primaryTask.route, emphasis: 'primary' })
     }
-    items.push({ label: 'Pricing', href: '/pricing', emphasis: 'secondary' })
     items.push({ label: 'Contact', href: '/contact', emphasis: 'secondary' })
     return items
   }, [primaryTask])
