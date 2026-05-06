@@ -4,7 +4,7 @@ export const siteIdentity = {
   tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Press distribution built for clarity',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'NewsTapy helps teams publish press releases with structured formatting, readable archives, and distribution-focused presentation.',
+    'NewsTapy helps teams publish press wire with structured formatting, readable archives, and distribution-focused presentation.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'newstapy.com',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://newstapy.com',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',

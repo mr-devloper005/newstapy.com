@@ -14,7 +14,6 @@ export function FooterOverride() {
       title: 'Product',
       links: [
         ...(primaryTask ? [{ label: primaryTask.label, href: primaryTask.route }] : []),
-        { label: 'Pricing', href: '/pricing' },
         { label: 'Search', href: '/search' },
       ],
     },
@@ -23,7 +22,6 @@ export function FooterOverride() {
       links: [
         { label: 'About', href: '/about' },
         { label: 'Contact', href: '/contact' },
-        { label: 'Press', href: '/press' },
       ],
     },
     {
@@ -31,7 +29,6 @@ export function FooterOverride() {
       links: [
         { label: 'Privacy', href: '/privacy' },
         { label: 'Terms', href: '/terms' },
-        { label: 'Cookies', href: '/cookies' },
       ],
     },
   ]

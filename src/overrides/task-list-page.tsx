@@ -49,7 +49,7 @@ export async function TaskListPageOverride({
 
         <header className="max-w-3xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[var(--nt-burgundy)]">Archive</p>
-          <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-[var(--nt-plum)] sm:text-5xl">{taskConfig?.label || 'Press releases'}</h1>
+          <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-[var(--nt-plum)] sm:text-5xl">{taskConfig?.label || 'Press wire'}</h1>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">{taskConfig?.description}</p>
         </header>
 

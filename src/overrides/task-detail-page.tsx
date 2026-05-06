@@ -31,7 +31,7 @@ export async function TaskDetailPageOverride({ task, slug }: { task: TaskKey; sl
   const category =
     (typeof content.category === 'string' && content.category.trim()) ||
     post.tags?.find((t) => typeof t === 'string') ||
-    'Press release'
+    'Press wire'
   const author = post.authorName || (typeof content.author === 'string' ? content.author : '') || 'Newsroom'
   const published = post.publishedAt
     ? new Date(post.publishedAt).toLocaleString(undefined, {
@@ -45,6 +45,10 @@ export async function TaskDetailPageOverride({ task, slug }: { task: TaskKey; sl
   const related = (await fetchTaskPosts(task, 12, { fresh: true }))
     .filter((item) => item.slug !== post.slug)
     .slice(0, 4)
+
+  const recentReleases = (await fetchTaskPosts(task, 10, { fresh: true }))
+    .filter((item) => item.slug !== post.slug)
+    .slice(0, 6)
 
   const path = buildPostUrl(task, post.slug)
   const absoluteUrl = `${SITE_CONFIG.baseUrl.replace(/\/$/, '')}${path}`
@@ -80,7 +84,7 @@ export async function TaskDetailPageOverride({ task, slug }: { task: TaskKey; sl
                 {taskConfig?.label || 'Press'}
               </Link>
             </nav>
-            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--nt-burgundy)]">Press release</p>
+            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--nt-burgundy)]">Press wire</p>
             <h1 className="mt-3 max-w-4xl font-display text-4xl font-semibold tracking-tight text-[var(--nt-plum)] sm:text-[2.65rem] sm:leading-[1.12]">
               {post.title}
             </h1>
@@ -93,7 +97,6 @@ export async function TaskDetailPageOverride({ task, slug }: { task: TaskKey; sl
               <span>
                 <span className="font-medium text-foreground">{author}</span>
               </span>
-              {published ? <time dateTime={post.publishedAt}>{published}</time> : null}
               <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--nt-plum)]">{String(category)}</span>
             </div>
           </div>
@@ -101,18 +104,20 @@ export async function TaskDetailPageOverride({ task, slug }: { task: TaskKey; sl
 
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-12 lg:py-14">
           <div>
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted shadow-sm">
-              <ContentImage
-                src={hero}
-                alt={`${post.title} featured`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 66vw"
-                priority
-              />
-            </div>
+            {hero && !hero.includes('placeholder.svg') ? (
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted shadow-sm">
+                <ContentImage
+                  src={hero}
+                  alt={`${post.title} featured`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 66vw"
+                  priority
+                />
+              </div>
+            ) : null}
 
-            <ShareStrip url={absoluteUrl} title={post.title} className="mt-8" />
+            <ShareStrip url={absoluteUrl} title={post.title} className={hero && !hero.includes('placeholder.svg') ? "mt-8" : ""} />
 
             <RichContent html={html} className="article-content mt-10 max-w-none text-base leading-[1.8] text-foreground" />
 
@@ -145,6 +150,35 @@ export async function TaskDetailPageOverride({ task, slug }: { task: TaskKey; sl
                 More releases
               </Link>
             </div>
+
+            {recentReleases.length ? (
+              <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Recent Releases</p>
+                <ul className="mt-5 space-y-4">
+                  {recentReleases.map((release) => {
+                    return (
+                      <li key={release.id}>
+                        <Link
+                          href={buildPostUrl(task, release.slug)}
+                          className="group block"
+                        >
+                          <p className="text-sm font-medium leading-snug text-foreground transition group-hover:text-[var(--nt-burgundy)]">
+                            {release.title}
+                          </p>
+
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+                <Link
+                  href={taskConfig?.route || '/updates'}
+                  className="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-border py-2.5 text-sm font-semibold text-[var(--nt-burgundy)] transition hover:bg-muted"
+                >
+                  View all releases
+                </Link>
+              </div>
+            ) : null}
 
             <div className="rounded-3xl border border-border bg-[color-mix(in_oklab,white_90%,var(--nt-cream))] p-6">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Looking for something?</p>

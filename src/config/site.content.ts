@@ -29,13 +29,13 @@ export const siteContent = {
   },
   home: {
     metadata: {
-      title: 'NewsTapy — Press release publishing',
+      title: 'NewsTapy — Press wire publishing',
       description:
-        'Publish and browse press releases with a modern archive, structured presentation, and reader-friendly detail pages.',
-      openGraphTitle: 'NewsTapy — Press release publishing',
+        'Publish and browse press wire with a modern archive, structured presentation, and reader-friendly detail pages.',
+      openGraphTitle: 'NewsTapy — Press wire publishing',
       openGraphDescription:
-        'Distribution-focused press releases with a searchable archive and polished reading experience.',
-      keywords: ['press releases', 'media distribution', 'announcements', 'NewsTapy'],
+        'Distribution-focused press wire with a searchable archive and polished reading experience.',
+      keywords: ['press wire', 'media distribution', 'announcements', 'NewsTapy'],
     },
     introBadge: 'Why NewsTapy',
     introTitle: 'Built for teams that ship announcements on a schedule.',
@@ -108,7 +108,7 @@ export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'soci
     description: 'Open PDFs and downloadable files.',
   },
   mediaDistribution: {
-    title: 'Press releases',
+    title: 'Press wire',
     description: 'Search and filter official releases by category and date.',
   },
 }

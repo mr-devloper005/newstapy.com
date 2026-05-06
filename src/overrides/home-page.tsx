@@ -85,12 +85,6 @@ export async function HomePageOverride() {
                 {siteContent.hero.primaryCta.label}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <Link
-                href={siteContent.hero.secondaryCta.href}
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
-              >
-                {siteContent.hero.secondaryCta.label}
-              </Link>
             </div>
             <ul className="mt-10 grid gap-3 text-sm text-white/80 sm:grid-cols-2">
               {['Structured release pages', 'Archive filters & search', 'Share-ready detail views'].map((item) => (
@@ -110,8 +104,8 @@ export async function HomePageOverride() {
                     <Radio className="h-5 w-5" aria-hidden />
                   </span>
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/55">Live desk</p>
-                    <p className="text-sm font-semibold text-white">Release pipeline</p>
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/55">Press wire</p>
+                    <p className="text-sm font-semibold text-white">Latest releases</p>
                   </div>
                 </div>
                 <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-200">Online</span>
@@ -125,19 +119,19 @@ export async function HomePageOverride() {
                     <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--nt-peach)]" />
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-white/92">
-                        {grid[i]?.title || 'Connect your CMS to populate this lane.'}
+                        {grid[i]?.title || 'Your next press wire release goes here.'}
                       </p>
                       <p className="text-xs text-white/50">
                         {grid[i]?.publishedAt
                           ? new Date(grid[i].publishedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
-                          : 'Awaiting publish activity'}
+                          : 'No releases published yet'}
                       </p>
                     </div>
                   </div>
                 ))}
               </div>
               <div className="mt-6 rounded-2xl border border-dashed border-white/15 bg-white/[0.03] p-4 text-xs leading-relaxed text-white/60">
-                The homepage highlights your latest wire items. Older releases stay in the archive with category and date filters.
+                Latest press wire releases appear here automatically. Browse the full archive for category and date filters.
               </div>
             </div>
           </div>
@@ -248,24 +242,26 @@ export async function HomePageOverride() {
         </div>
       </section>
 
-      {lead ? (
-        <section className="bg-[var(--nt-plum)] py-14 text-[var(--nt-cream)]">
+      <section className="bg-[var(--nt-plum)] py-14 text-[var(--nt-cream)]">
           <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 px-4 sm:flex-row sm:items-center sm:px-6">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--nt-peach)]">Spotlight</p>
-              <h2 className="mt-2 max-w-xl font-display text-2xl font-semibold tracking-tight">{lead.title}</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/75">{excerpt(lead.summary, 200)}</p>
+              <h2 className="mt-2 max-w-xl font-display text-2xl font-semibold tracking-tight">
+                {lead?.title || 'Your featured press wire release appears here'}
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/75">
+                {lead ? excerpt(lead.summary, 200) : 'The most recent or pinned release will be highlighted in this section. Publish your first wire release to populate this spotlight.'}
+              </p>
             </div>
             <Link
-              href={buildPostUrl('mediaDistribution', lead.slug)}
+              href={lead ? buildPostUrl('mediaDistribution', lead.slug) : '/updates'}
               className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--nt-peach)] px-6 py-3 text-sm font-semibold text-[var(--nt-plum)] transition hover:bg-[color-mix(in_oklab,var(--nt-peach)_90%,white)]"
             >
-              Read now
+              {lead ? 'Read now' : 'Browse releases'}
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
         </section>
-      ) : null}
 
       <Footer />
     </div>
