@@ -45,7 +45,13 @@ function getTone(kind: ReturnType<typeof getProductKind>) {
 
 export default function ContactPage() {
   if (CONTACT_PAGE_OVERRIDE_ENABLED) {
-    return <ContactPageOverride />
+    return (
+      <div className="min-h-screen bg-[#fbf6ee] text-[#241711]">
+        <NavbarShell />
+        <ContactPageOverride />
+        <Footer />
+      </div>
+    )
   }
 
   const { recipe } = getFactoryState()
