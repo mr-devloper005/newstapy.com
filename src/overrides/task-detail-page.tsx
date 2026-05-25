@@ -95,7 +95,7 @@ export async function TaskDetailPageOverride({ slug }: { task: TaskKey; slug: st
               {post.title}
             </h1>
 
-            {date ? (
+            {false && date ? (
               <div className="mt-5 text-sm text-muted-foreground">
                 <span>{date}</span>
               </div>
